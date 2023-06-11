@@ -1,0 +1,52 @@
+import java.util.*;
+
+public class HomeWork5 {
+    public static void main(String[] args) {
+        // Создание первого множества
+        Map<String, String> map1 = new HashMap<>();
+        map1.put("Key1", "Value1");
+        map1.put("Key2", "Value2");
+        map1.put("Key3", "Value3");
+        map1.put("Key4", "Value4");
+        map1.put("Key5", "Value5");
+        map1.put("Key6", "Value6");
+
+        // Вывод значений первого множества
+        for (Map.Entry<String, String> entry : map1.entrySet()) {
+            System.out.println(entry.getValue());
+        }
+
+        // Добавление символа "!" ко всем значениям первого множества
+        for (Map.Entry<String, String> entry : map1.entrySet()) {
+            String value = entry.getValue() + "!";
+            entry.setValue(value);
+        }
+
+        // Создание второго множества
+        Map<String, String> map2 = new HashMap<>();
+        map2.put("Key1", "Value7");
+        map2.put("Key2", "Value8");
+        map2.put("Key3", "Value9");
+        map2.put("Key10", "Value10");
+
+        // Объединение значений первого и второго множеств, если ключи совпадают
+        for (Map.Entry<String, String> entry : map2.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (map1.containsKey(key)) {
+                value += " " + map1.get(key);
+            }
+            entry.setValue(value);
+        }
+
+        // Вывод значений второго множества после объединения с первым множеством
+        for (Map.Entry<String, String> entry : map2.entrySet()) {
+            System.out.println(entry.getValue());
+        }
+
+        // Объединение множеств с использованием метода merge
+        map1.forEach((key, value) ->
+                map2.merge(key, value, (v1, v2) -> v1 + " " + v2)
+        );
+    }
+}
